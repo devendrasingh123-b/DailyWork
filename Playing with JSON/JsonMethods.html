@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>JSON</h1>
+</body>
+<script>
+
+let student = {
+  name: "Alice",
+  age: 22,
+  course: "Computer Science"
+};
+
+
+let jsonString=JSON.stringify(student)
+console.log(jsonString)
+
+
+// deep nested copy 
+
+let copyObject=JSON.parse(JSON.stringify(student))
+console.log(copyObject)
+
+
+
+
+
+// Problem Statement:
+// Write a function called multiplyNumbers that accepts two numbers as arguments and uses the apply() method to multiply them. The function should return the product.
+
+function multiplyNumbers(num1,num2){
+  return num1 * num2
+}
+
+let numbers = [10,20]
+
+console.log(multiplyNumbers.apply(null,numbers))
+
+
+// Problem Statement:
+// Create a function personInfo that logs the name and age of a person. Using the call() method, call the function with a specific this context (an object with properties name and age).
+
+function personInfo(){
+
+let val=`Name : ${this.name} and their age will ${this.age}`
+console.log(val)
+
+}
+
+let object={
+    name:"devendra",
+    age:12
+}
+
+personInfo.call(object)
+
+
+// Problem Statement:
+// Create a function setTimeoutGreeting that uses the bind() method to ensure the correct this context when calling console.log. The function should print "Hello, [name]" after a delay of 1 second, where [name] is the name property of a passed object.
+
+// function setTimeoutGreeting(){
+
+//     setTimeout(()=>{
+
+
+// console.log(this.name)
+
+    
+//     },1000)
+
+
+// }
+
+function setTimeoutGreeting(){
+
+    setTimeout(function(){
+
+        console.log("Hello, " + this.name)
+
+    }.bind(this),1000)
+
+}
+
+let obj01={
+    name:"ravi"
+}
+
+let v=setTimeoutGreeting.bind(obj01)
+
+v()
+
+
+
+// Problem Statement:
+// Create a constructor function Person that initializes name and age. Implement a method displayInfo() using this inside the constructor, and then use the bind() method to create a new function that retains the context of the original Person instance. Finally, log the details using this new function
+
+function Person(name,age){
+
+    this.name = name
+    this.age = age
+
+    this.displayInfo = function(){
+        console.log(this.name,this.age)
+    }
+
+}
+
+let p1 = new Person("Ravi",25)
+
+let boundFunc = p1.displayInfo.bind(p1)
+
+boundFunc()
+
+
+// L0. Find an Element in an Array using includes()
+// Write a function checkElement(arr, element) that checks whether a given element exists in an array using the includes() method.
+
+// Example Input:
+
+// [10, 20, 30, 40], 20
+
+// Example Output:
+
+// true
+
+function checkElement(arr, element){
+
+    let val=arr.includes(element)
+    console.log(val)
+
+}
+
+let arr=[10,20,30,40,50,55]
+
+let element=45
+
+checkElement(arr,element)
+element=30
+checkElement(arr,element)
+
+
+
+// L2: Sort an Array of Names Alphabetically using localeCompare()
+// Write a function sortNames(namesArray) that sorts an array of names alphabetically using the sort() method and localeCompare().
+
+// Example Input:
+
+// ["Charlie", "Alice", "Bob"]
+
+// Example Output:
+
+// ["Alice", "Bob", "Charlie"]
+
+
+function sortNames(arr){
+
+    arr.sort((a,b)=>{
+        return a.localeCompare(b)
+    })
+
+    return arr
+}
+
+
+let val02=["Charlie", "Alice", "Bob"]
+
+console.log(sortNames(val02))
+
+
+
+
+</script>
+</html>
