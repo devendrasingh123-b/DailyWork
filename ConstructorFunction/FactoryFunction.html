@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>constructor</h1>
+</body>
+<script>
+
+    // constructorFunction
+
+function ConstructorFunction(name,age,subject){
+
+    this.name=name
+    this.age=age
+    this.subject=subject
+
+
+}
+
+
+ConstructorFunction.prototype.add=function(  ){
+    console.log("this is prototype function "+this.name)
+}
+
+
+
+let firstStudent=new ConstructorFunction("devendra","12year","maths")
+
+firstStudent.add()
+console.log(firstStudent)
+
+
+// factory fonction
+
+function Factory(name,age){
+
+    return {
+        Name:name,
+        age:age,
+
+        add:function (){
+            console.log(` this is the very good  ${name}`)
+        }
+    }
+
+
+
+}
+
+
+let one=Factory("devendra ","12th")
+console.log(one)
+one.add()
+
+
+
+function timer(duration, onComplete){
+
+
+setTimeout(()=>{
+  onComplete(duration)
+},duration)
+
+}
+
+
+function onComplete(val){
+  console.log(`"Timer of ${val}`)
+}
+
+
+timer(4000,onComplete)
+
+
+
+// L2 - Building a Callback-Based Async Workflow
+// Problem Statement:
+// Develop a complex workflow using asynchronous tasks to simulate user registration and welcome notification. Write functions registerUser, sendVerification, loginUser, and displayWelcomeMessage. Each task should simulate a 1-second delay, executed in sequence using callbacks. Pass error messages between functions in case of failure, and log the failure reason.
+
+// Steps:
+
+// Write registerUser to simulate a registration delay; on success, proceed to sendVerification.
+// sendVerification should simulate sending a verification email; on success, proceed to loginUser.
+// loginUser should simulate logging the user in; on success, call displayWelcomeMessage.
+// If any step fails, log the error and stop the workflow.
+// Submission Guidelines:
+
+function registerUser(callback){
+
+    setTimeout(()=>{
+
+        let success = true
+
+        if(!success){
+            callback("Registration failed")
+            return
+        }
+
+        console.log("registration successful")
+
+        callback(null)
+
+    },1000)
+
+}
+
+function sendVerification(callback){
+
+    setTimeout(()=>{
+
+        let success = true
+
+        if(!success){
+            callback("Verification failed")
+            return
+        }
+
+        console.log("verification sent")
+
+        callback(null)
+
+    },1000)
+
+}
+
+function loginUser(callback){
+
+    setTimeout(()=>{
+
+        let success = true
+
+        if(!success){
+            callback("Login failed")
+            return
+        }
+
+        console.log("login successful")
+
+        callback(null)
+
+    },1000)
+
+}
+
+function displayWelcomeMessage(){
+    console.log("Welcome user!")
+}
+
+
+
+registerUser(()=>{
+    sendVerification(()=>{
+        loginUser(()=>{
+            displayWelcomeMessage()
+        })
+    })
+})
+
+
+
+function fetchData(callback) {
+  setTimeout(() => {
+    let data = "Server data";
+    callback(data);
+  }, 1000);
+}
+
+fetchData((data) => console.log(data));
+
+
+// L0 - Creating and Using Methods in Factory Functions
+
+// Problem Statement:
+// Create a factory function createCar that returns an object representing a car. Each car should have make, model, and year as properties. Add a method describeCar() to the object that outputs a description of the car's make, model, and year.
+
+// Steps:
+
+// Define the factory function createCar.
+// The function should accept make, model, and year as parameters.
+// Return an object with the properties make, model, and year.
+// The describeCar() method should print "This car is a [year] [make] [model]."
+// Example:
+// const car = createCar("Toyota", "Camry", 2022);
+// car.describeCar();
+// // Output: This car is a 2022 Toyota Camry.
+
+function createCar(year,make,model){
+
+    return {
+        model:model,
+        year :year,
+       make:make,
+
+
+        describeCar :function (){
+
+            console.log(`this car is a ${year} ,${model} ,${make} `)
+
+        }
+    }
+
+}
+
+//const car = createCar("Toyota", "Camry", 2022);
+//car.describeCar();
+
+
+
+
+
+function createInventoryItem(item,catagery,price){
+
+
+    return {
+        item:item,
+        catagery:catagery,
+        price:price,
+
+
+        describeItem:function (){
+
+            console.log(`Itme: ${item} ${catagery} ${price}`)
+        }
+}
+}
+
+
+function addItemDiscount(obj,discount){
+
+    let price=obj.price
+    let dis=price/discount
+
+    return {
+
+        applyDiscount:function (){
+            console.log(`Discounted Price for ${obj.item} : ${price-dis}`)
+        }
+    }
+
+}
+
+
+
+const item = createInventoryItem("Laptop", "Electronics", 1500);
+item.describeItem();
+// Output: Item: Laptop, Category: Electronics, Price: 1500
+
+const discountedItem = addItemDiscount(item, 10);
+discountedItem.applyDiscount();
+// Output: Discounted Price for Laptop: 1350
+
+
+
+// Q: 15
+// Title:
+// L2 - Building a Library Management System Using Factory Functions
+
+// Problem Statement:
+// Create a factory function createLibrary that manages a collection of books in a library. Each library should allow for adding new books, removing books by title, and displaying all available books. Implement helper factory functions for creating Book objects, which include properties title and author, and a method details() to print the book’s details.
+
+// Steps:
+
+// Define the Book factory function with title, author, and a details() method.
+// Define the createLibrary factory function that returns an object with methods to:
+// Add a book to the collection.
+// Remove a book by title.
+// List all books by calling each book’s details() method.
+// Implement createLibrary to store books in an internal array.
+// Example:
+// const library = createLibrary();
+
+// const book1 = Book("To Kill a Mockingbird", "Harper Lee");
+// const book2 = Book("1984", "George Orwell");
+
+// library.addBook(book1);
+// library.addBook(book2);
+
+// library.listBooks();
+// // Output:
+// // Title: To Kill a Mockingbird, Author: Harper Lee
+// // Title: 1984, Author: George Orwell
+
+// library.removeBook("1984");
+// library.listBooks();
+// // Output:
+// // Title: To Kill a Mockingbird, Author: Harper Lee
+
+function Book(title, author) {
+
+    return {
+
+        title: title,
+        author: author,
+
+        // book ki details print karega
+        details() {
+            console.log(`Title: ${this.title}, Author: ${this.author}`)
+        }
+
+    }
+
+}
+
+
+function createLibrary() {
+
+    // internal array jisme books store honge
+    let books = []
+
+    return {
+
+        // book add karne ka method
+        addBook(book) {
+            books.push(book)
+        },
+
+        // title se book remove karega
+        removeBook(title) {
+
+            books = books.filter((book) => {
+                return book.title !== title
+            })
+
+        },
+
+        // saari books list karega
+        listBooks() {
+
+            books.forEach((book) => {
+                book.details()
+            })
+
+        }
+
+    }
+
+}
+
+
+const library = createLibrary()
+
+const book1 = Book("To Kill a Mockingbird", "Harper Lee")
+const book2 = Book("1984", "George Orwell")
+
+library.addBook(book1)
+library.addBook(book2)
+
+library.listBooks()
+
+library.removeBook("1984")
+
+library.listBooks()
+
+
+
+
+
+
+</script>
+</html>

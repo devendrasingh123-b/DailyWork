@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Factory function </h1>
+</body>
+<script>
+
+
+// Problem Statement:
+// Write a factory function called createEmployee that generates an object representing an employee. Each employee object should have the properties name, role, and salary, along with a method introduce() that prints a message introducing the employee's name and role.
+
+// Steps:
+
+// Create the factory function createEmployee.
+// The function should accept name, role, and salary as parameters.
+// Return an object with properties name, role, salary, and a method introduce().
+// The introduce() method should print a string: "Hello, I am [name], working as a [role]."
+function createEmployee(name,role,salary){
+
+    this.name=name
+    this.role=role
+    this.salary=salary
+
+}
+
+
+createEmployee.prototype.introduce=function (){
+    console.log(`hello so my name is ${this.name} and i am doing ${this.role}`)
+}
+
+
+let firstEmployee=new createEmployee("devendra","Admin","1cr")
+console.log(firstEmployee)
+
+let ob={
+    name:"raja bhaiya",
+    role:"cutting a vegitable"
+}
+firstEmployee.introduce()
+firstEmployee.introduce.call(ob)
+
+
+
+// Problem Statement:
+// Create a factory function createCar that returns an object representing a car. Each car should have make, model, and year as properties. Add a method describeCar() to the object that outputs a description of the car's make, model, and year.
+
+// Steps:
+
+// Define the factory function createCar.
+// The function should accept make, model, and year as parameters.
+// Return an object with the properties make, model, and year.
+// The describeCar() method should print "This car is a [year] [make] [model]."
+
+
+function createCar(make,model,year){
+    this.make=make
+    this.model=model
+    this.year=year
+}
+
+createCar.prototype.describeCar=function (){
+    console.log(`This car is a ${this.year} and ${this.make} and  ${this.model}`)
+}
+
+let car01=new createCar(2012,"audi 05","devenra")
+console.log(car01)
+car01.describeCar()
+
+
+
+
+
+// L1 - Factory Functions with Dynamic Property Addition
+
+// Problem Statement:
+// Create a factory function createInventoryItem to represent items in an inventory system. Each item should have properties like name, category, and price. Add a method describeItem() that outputs the item's details. Extend this functionality by creating another factory function addItemDiscount, which accepts an inventoryItem object, a discountPercent, and adds a discountedPrice property based on the discount. Finally, create a method applyDiscount() in addItemDiscount that recalculates and outputs the discounted price.
+
+// Steps:
+
+// Define createInventoryItem to take name, category, and price.
+// Add a method describeItem() to createInventoryItem to print the item's details.
+// Define addItemDiscount, which accepts an inventoryItem object and discountPercent.
+// Calculate discountedPrice based on the original price and discountPercent.
+// Add a method applyDiscount() to addItemDiscount that logs the discountedPrice for the item.
+function createInventoryItem(name, category, price){
+
+    this.name = name
+    this.category = category
+    this.price = price
+
+}
+
+createInventoryItem.prototype.describeItem = function(){
+
+    console.log(`Item: ${this.name}, Category: ${this.category}, Price: ${this.price}`)
+
+}
+
+
+
+function addItemDiscount(item, discount){
+
+    this.item = item
+    this.discount = discount
+
+}
+
+addItemDiscount.prototype.applyDiscount = function(){
+
+    let discountedPrice = this.item.price - (this.item.price * this.discount / 100)
+
+    console.log(`Discounted Price for ${this.item.name}: ${discountedPrice}`)
+
+}
+
+
+
+const item = new createInventoryItem("Laptop", "Electronics", 1500)
+
+item.describeItem()
+
+
+
+const discountedItem = new addItemDiscount(item, 10)
+
+discountedItem.applyDiscount()
+console.log("04")
+
+
+function createBook(title, author) {
+  return {
+    title: title,
+    author: author,
+    printInfo: function() {
+      console.log("Book: " + this.title + ", Author: " + this.author);
+    }
+  };
+}
+
+const book = createBook("1984", "George Orwell");
+book.printInfo()
+
+// Output: Book: 1984, Author: George Orwell
+
+
+
+
+// L2 - Building a Library Management System Using Factory Functions
+
+// Problem Statement:
+// Create a factory function createLibrary that manages a collection of books in a library. Each library should allow for adding new books, removing books by title, and displaying all available books. Implement helper factory functions for creating Book objects, which include properties title and author, and a method details() to print the book’s details.
+
+// Steps:
+
+// Define the Book factory function with title, author, and a details() method.
+// Define the createLibrary factory function that returns an object with methods to:
+// Add a book to the collection.
+// Remove a book by title.
+// List all books by calling each book’s details() method.
+// Implement createLibrary to store books in an internal array.
+
+
+
+function createLibrary(){
+
+}
+
+
+function Book(title,author){
+    return {
+        title:title,
+        author:author,
+        details:function (){
+            console.log(`this is the ${title} and also a ${author}`)
+        }
+
+
+    }
+}
+
+
+let firstBook=Book("himalyaes of the pic","Devendra singh Rahthore")
+console.log(firstBook)
+
+</script>
+</html>
